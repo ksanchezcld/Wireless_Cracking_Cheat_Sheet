@@ -1,0 +1,216 @@
+https://github.com/miguelbalboa/rfid
+https://gist.github.com/mattgorecki/6085344
+https://github.com/AdamLaurie/RFIDIOt
+https://github.com/onurguzel/pam_rfid/blob/master/rfidreader.py
+https://gist.github.com/jasper9/7715465
+https://projects.cs.ru.is/attachments/117/RFIDReader.py
+http://rfidiot.org/
+https://www.youtube.com/watch?v=nn-nuhAByRk
+https://www.youtube.com/watch?v=Up-DSf98UFE
+https://www.youtube.com/watch?v=L0PGQsvWlq8	
+https://www.youtube.com/watch?v=seKas8KFcSI
+
+
+
+----
+MODEL
+-----
+MFRC-522 RC522 RFID RF Module Kit S50 KeyCard RFID Reader Card For Arduino UNO Mega 2560 R3 Nano AVR Raspberry Pi
+
+http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=mirafare+rc522+card+read+antenna+rf+module+rfid+reader+ic+card+proximity+
+
+[CODE]
+
+https://projects.cs.ru.is/attachments/117/RFIDReader.py
+
+#!/usr/bin/env python
+2	
+#-*- coding:utf-8 -*-
+3	
+4	
+'''
+5	
+Created on May 12, 2011
+6	
+
+7	
+@author: kristinr08
+8	
+'''
+9	
+10	
+import time
+11	
+import serial
+12	
+import sys
+13	
+import sqlite3
+14	
+15	
+conn = sqlite3.connect('heatdata.db')
+16	
+c = conn.cursor()
+17	
+18	
+c.execute("select * from RFID")
+19	
+tag = raw_input('Write number of tag: ')
+20	
+for row in c:
+21	
+    if int(tag) == row[0]:
+22	
+        tagid = row[9]
+23	
+        print tagid
+24	
+25	
+class RFIDReader:
+26	
+    """
+27	
+    We do some intelligent serial things here, optimized for the RFID reader
+28	
+    """
+29	
+    errors = ["Invalid error.",
+30	
+              "Invalid command.",
+31	
+              "Invalid argument.",
+32	
+              "Missing argument or incorrect number of arguments.",
+33	
+              "Operation failed because no tag was detected.",
+34	
+              "Operation failed because more than one tag detected.",
+35	
+              "Tag detected but operation did not complete.",
+36	
+              "Lock failed (only during L command).",
+37	
+              "Operation failed: tag locked.",
+38	
+              "Operation failed: insufficient power.",
+39	
+              "Operation failed: incorrect access password."                            
+40	
+              ]
+41	
+42	
+    
+43	
+    
+44	
+    def __init__(self, port="/dev/ttyUSB0", baudrate=115200):
+45	
+        """constructor, fire up the connection"""
+46	
+        self.serial = serial.Serial(port, baudrate = baudrate, timeout=1)
+47	
+        
+48	
+        # enter console->serial loop
+49	
+50	
+# D causes only one read to be sent per tag
+51	
+    def slow_write(self, data, delay=0.01, addCR=True):
+52	
+        """
+53	
+        Slower version of serial write that allows time for the reader to parse
+54	
+        """
+55	
+        for letter in data:
+56	
+            retcode = self.serial.write(letter)
+57	
+            time.sleep(delay)
+58	
+        addCR and self.serial.write("\r")
+59	
+        return retcode
+60	
+61	
+    def send_confirm(self, command, desc, failonerror = False):
+62	
+        resp = ""
+63	
+        # sometimes there is old garbled commands
+64	
+        # if things fail, try again
+65	
+        while(resp == "" or resp[0] != command[0]):
+66	
+            # IMPORTANT: The reader controller is not fast enough to run at 115200
+67	
+            # we must send our characters a little slower.  Remember that the old one
+68	
+            # expected to go at 9600
+69	
+            self.slow_write(command)
+70	
+71	
+            #sys.stdout.write(repr(self.serial.read(1)))
+72	
+            resp = self.serial.readline().rstrip("\n").rstrip("\r")
+73	
+74	
+            #resp = ser.readline()
+75	
+            print "%s: %s = '%s'" % (desc, ByteToHex(resp), resp)
+76	
+        return resp
+77	
+    
+78	
+79	
+def ByteToHex( byteStr ):
+80	
+    """
+81	
+    Convert a byte string to it's hex string representation e.g. for output.
+82	
+    """
+83	
+    
+84	
+    # Uses list comprehension which is a fractionally faster implementation than
+85	
+    # the alternative, more readable, implementation below
+86	
+    #   
+87	
+    #    hex = []
+88	
+    #    for aChar in byteStr:
+89	
+    #        hex.append( "%02X " % ord( aChar ) )
+90	
+    #
+91	
+    #    return ''.join( hex ).strip()        
+92	
+93	
+    return ''.join( [ "%02X " % ord( x ) for x in byteStr ] ).strip()
+94	
+95	
+96	
+if __name__ == '__main__':
+97	
+    print "CR is %s, LF is %s" % (ByteToHex("\r"), ByteToHex("\n"))
+98	
+    st = RFIDReader(port="/dev/ttyUSB0")
+99	
+    st.send_confirm("E", "echo/NOECHO")
+100	
+    st.send_confirm(",", "ReadingSpeed")
+101	
+    st.send_confirm("D", "datastream/NO DATA STREAMING")
+102	
+    st.send_confirm("T.", "target")
+103	
+    st.send_confirm("W"+str(tagid), "write")

@@ -1,0 +1,13 @@
+FruityWifi is an open source tool to audit wireless networks. It allows the user to deploy advanced attacks by directly using the web interface or by sending messages to it. 
+
+Initialy the application was created to be used with the Raspberry-Pi, but it can be installed on any Debian based system. 
+
+FruityWifi v2.0 has many upgrades. A new interface, new modules, Realtek chipsets support, Mobile Broadband (3G/4G) support, a new control panel, and more.
+
+FruityWifi is based on modules making it more flexible. These modules can be installed from the control panel to provide FruityWifi with new functionalities. 
+
+Within the available modules you can find URLsnarf, DNSspoof, Kismet, mdk3, ngrep, nmap, Squid3 y SSLstrip (code injection functionality), Captive Portal, AutoSSH, Meterpreter, Tcpdump and more.
+
+AutoSSH allows the user to create a reverse ssh connection, restarting it in case that the connection has been closed or dropped. It is useful to keep a permanent connection with FruityWifi.
+
+http://www.fruitywifi.com/index_eng.html

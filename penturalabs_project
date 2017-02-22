@@ -1,0 +1,27 @@
+First we brought you “Blue for the Pineapple…” a cheap Access Point and hack to make the Pineapple Project more affordable for students/researchers or even pentesters as a cheap expendable throwaway pwn-box.
+
+The plan to port the Pineapple was always on the cards, especially after the successful port to the TPLink AP.  After several inquisitive comments and emails we bring you an update…
+
+…a slice of Pineapple Pi .
+
+Yes, we have ported the karma patches to the Raspbian image of the Raspberry Pi.  Why?  Not only does the software take advantage of the full hard-float processor.  But the advantages over the openwrt image mean:
+
+More RAM (256/512MB RAM, v1/v2)
+More Disk Space (X_GB SDcard as a base image)
+Faster processor (Upto 1GHz (Turbo Mode))
+Ruby works…
+therefore, Metasploit works & …
+we can perfrom a hell of a lot more pentesting tasks
+Initial tests confirm karma is working correctly.
+
+We are now working on porting the PHP web interface using a combination of:
+
+nginx
+php5-fpm
+As the Pi can support multiple users (as other cheap devices tend to run everything as “root”), the web-interface has to be cleverly re-written to support the the binaries and layout of the Raspbian image.  Keep an eye on our 
+
+github repository for future updates https://github.com/PenturaLabs.
+
+https://penturalabs.wordpress.com/2013/06/24/yellow-for-a-slice-of-pineapple-pi/
+
+https://penturalabs.wordpress.com/2013/04/25/blue-for-the-pineapple/

@@ -1,0 +1,21 @@
+
+The WiFi Pineapple Tetra is thoughtfully designed with an emphasis on performance and usability. Console access is at the ready with an integrated Serial UART from its Micro USB port. Ethernet connectivity is supported by a standard RJ45 port, as well as an onboard USB Ethernet controller from its Micro USB port.
+
+Versatile power options and an efficient thermal design support long term deployment and on-the-go auditing. Either power from an optional 12V 2A PSU, from most laptops USB ports with the included Micro USB Y cables, or from the Pineapple Juice 15000 battery.
+
+Applications and logs are stored on the onboard high speed NAND flash memory while peripherals and expansion via the USB 2.0 host port offers support for modern QMI-based LTE modems, radios, disks and more.
+
+The new WiFi Pineapple Android app simplifies USB Internet connection sharing. Tap to tether and instantly connect to the beautiful new mobile friendly web interface. Root not required.
+
+https://www.wifipineapple.com/
+
+Twitter: @xtr4nge | @FruityWifi
+Web: http://www.fruitywifi.com
+GitHub: https://github.com/xtr4nge/FruityWifi/
+http://www.fruitywifi.com/index_eng.html
+
+http://hackaday.com/2013/04/29/wifi-pineapple-project-uses-updated-hardware-for-man-in-the-middle-attacks/
+https://penturalabs.wordpress.com/2013/04/25/blue-for-the-pineapple/
+https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=107085
+https://www.reddit.com/r/netsec/comments/1d2zp0/20_wifi_pineapple_clone/
+https://penturalabs.wordpress.com/2013/04/25/blue-for-the-pineapple/
